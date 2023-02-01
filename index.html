@@ -2,34 +2,99 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/particles.js/2.0.0/particles.js"></script>
-    <script src="./app.js"></script>
-    <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        
-        #particles-js {
-            height: 100%;
-            width: 100%;
-            background-color: rgb(255, 255, 255);
-            position: absolute;
-            display: block;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>多彩雨滴</title>
+
 </head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    body {
+        position: relative;
+        /* background-image: url(https://images8.alphacoders.com/122/1226219.jpg); */
+        background-color: rgb(0, 0, 0);
+        background-repeat: no-repeat;
+        height: 100vh;
+        overflow: hidden;
+        background-size: 100%;
+    }
+    
+    div {
+        position: absolute;
+        width: 3px;
+        height: 30px;
+        border-radius: 0px 0px 5px 5px;
+        -webkit-box-reflect: below 100px;
+        animation: dropRain 1s linear infinite;
+        /* 调用关键帧动画*/
+    }
+    
+    div::after {
+        content: ":snowflake:";
+    }
+    /* div::after {
+        content: "l";
+        color: rgb(255, 255, 255);
+    } */
+    /* 关键帧 */
+    
+    @keyframes dropRain {
+        0% {
+            opacity: 0.5;
+            transform: translateY(-500px) rotateX(230deg);
+        }
+        /*参考自身的移动*/
+        10% {
+            opacity: 1;
+            transform: translateZ(-200px) rotateZ(0deg);
+        }
+        /*20% {background:rgb(255, 255, 255);}
+            30% {background:rgb(255, 0, 0);}
+            40% {background:rgb(255, 255, 255);} 变色 不好看 */
+        100% {
+            transform: translateY(100vh) rotateY(100deg);
+        }
+    }
+    
+    div:nth-child(3n+1) {
+        background: linear-gradient(transparent, rgb(0, 132, 255));
+    }
+    
+    div:nth-child(3n+2) {
+        background: linear-gradient(transparent, rgba(119, 0, 255, 0.5));
+    }
+    
+    div:nth-child(3n+3) {
+        background: linear-gradient(transparent, rgba(255, 0, 234, 0.103));
+    }
+</style>
 
 <body>
-    <div id="particles-js"></div>
+    <!--1.创建雨滴dom元素
+            2.设置样式
+            3.设置动画
+        -->
+    <script>
+        //定义雨滴个数
+        let n = 500
+            //获取父元素
+        const body = document.querySelector('body')
+            //循环创建雨滴dom元素，并且插入到父元素中
+        for (let i = 0; i < n; i++) {
+            const drop = document.createElement('div')
+            drop.style.left = Math.random() * body.offsetWidth + 'px'
+                //让每一个雨滴有先有后
+            drop.style.animationDelay = Math.random() * -5 + 's'
+                //让每一个雨滴有快有慢
+
+            drop.style.animationDuration = 2.5 + Math.random() * 5 + 's'
+            body.appendChild(drop)
+
+        }
+    </script>
 </body>
 
 </html>
